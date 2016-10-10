@@ -10,10 +10,13 @@ namespace animation {
     /// </summary>
     public class StageView : MonoBehaviour {
 
+        GameManager Manager;
+
         /// <summary>
         /// アニメーションを開始する
         /// </summary>
         public void Start() {
+            Manager = gameObject.GetComponent<GameManager>();
             StartCoroutine(StageViewCoroutine());
         }
 
@@ -35,10 +38,11 @@ namespace animation {
             ca.FadeOut(fotime);
             yield return new WaitForSeconds(fotime);
             cc.SetDefault();
-            ca.FadeIn(fitime, gameObject, "NextGameState");
+            ca.FadeIn(fitime, gameObject, "OnComplete");
         }
 
         void OnComplete() {
+            Manager.SetGameState(GameState.STAT_MAIN);
             Destroy(this);
         }
     }

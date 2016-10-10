@@ -28,23 +28,9 @@ public class Bullet : MonoBehaviour {
 	void Update () {
         if (transform.position.y < -5) {
             IsAlive = false;
+
         }
 	}
-    /*
-    void OnCollisionEnter(Collision who) {
-        GameObject obj = who.gameObject;
-        
-        if (obj.tag == "Enemy") {
-            int damage = CalcDamage(obj);
-            obj.GetComponent<Enemy>().AddDamage(damage);
-        }
-    }
-
-    int CalcDamage(GameObject enemy) {
-        Vector3 v = GetComponent<Rigidbody>().velocity;
-        return (int)(v.magnitude * 10);
-    }
-    */
 
     /// <summary>
     /// 一定時間移動がなければ弾が停止したとみなす
