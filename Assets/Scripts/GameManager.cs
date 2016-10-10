@@ -52,12 +52,8 @@ public class GameManager : MonoBehaviour {
     /// <summary>
     /// スコア表示用キャンバス
     /// </summary>
-    GameObject ScoreBorad;
+    TextBoard TextBorad;
 
-    /// <summary>
-    /// スコア表示用テキスト
-    /// </summary>
-    UnityEngine.UI.Text ScoreText;
 
     // Use this for initialization
     void Start () {
@@ -67,9 +63,11 @@ public class GameManager : MonoBehaviour {
         Bullets = GameObject.Find("Bullets");
         Barrel = Cannon.transform.FindChild("Barrel").gameObject;
 
-        ScoreBorad = GameObject.Find("ScoreBoard");
-        ScoreText = ScoreBorad.transform.FindChild("ScoreText").GetComponent<UnityEngine.UI.Text>();
+        TextBorad = GameObject.Find("TextBoard").GetComponent<TextBoard>();
+
         MousePos = new Vector3();
+
+        SetGameState(GameState.STAT_START);
 
         gameObject.AddComponent<StageView>();
     }
@@ -83,8 +81,6 @@ public class GameManager : MonoBehaviour {
                 UpdateMousePos(Input.GetMouseButton(0));
                 UpdateNowMovingBullet();
                 StageClearCheck();
-
-                ScoreText.text = "Score : " + State.Score;
                 break;
             case GameState.STAT_CLEAR:
                 break;
@@ -121,7 +117,8 @@ public class GameManager : MonoBehaviour {
 
     private void StageClearCheck() {
         if (Enemys.transform.childCount == 0) {
-            NextGameState();
+            SetGameState(GameState.STAT_CLEAR);
+            StageClear();
         }
     }
 
@@ -129,31 +126,32 @@ public class GameManager : MonoBehaviour {
     /// クリア時の処理
     /// </summary>
     private void StageClear() {
-        GameObject text = Camera.main.gameObject.transform.FindChild("Canvas/ClearText").gameObject;
-        text.SetActive(true);
+
         StartCoroutine(Utils.WaitForSeconds(3, () => {
-            text.SetActive(false);
+            SaveHighScore();
             GameObject.Find("SceneLoader").GetComponent<SceneLoader>().LoadSceneSingle("StageSelect");
         }));
     }
 
     /// <summary>
-    /// 次のステータスへ
+    /// ゲームステータスをセットする
     /// </summary>
-    public void NextGameState() {
-        switch (State.Stat) {
-            case GameState.STAT_START:
-                State.Stat = GameState.STAT_MAIN;
-                ScoreText.enabled = true;
-                break;
+    public void SetGameState(int newStat) {
+        State.Stat = newStat;
 
-            case GameState.STAT_MAIN:
-                State.Stat = GameState.STAT_CLEAR;
-                StageClear();
-                break;
+        //イベント通知
+        TextBorad.OnGameStateChange(newStat);
+    }
 
-            case GameState.STAT_CLEAR:
-                break;
+    /// <summary>
+    /// ハイスコアを保存する
+    /// </summary>
+    void SaveHighScore() {
+        string key = "HIGH_SCORE";
+        int hs = PlayerPrefs.GetInt(key, 0);
+        if (State.Score > hs) {
+            PlayerPrefs.SetInt(key, State.Score);
+            PlayerPrefs.Save();
         }
     }
 

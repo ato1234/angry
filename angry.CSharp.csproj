@@ -84,7 +84,8 @@
     <Compile Include="Assets\Scripts\GameState.cs" />
     <Compile Include="Assets\Scripts\Particle\ParticleSystemDestroy.cs" />
     <Compile Include="Assets\Scripts\SceneLoader.cs" />
-    <Compile Include="Assets\Scripts\Text.cs" />
+    <Compile Include="Assets\Scripts\TextBoard.cs" />
+    <Compile Include="Assets\Scripts\Utils\Text.cs" />
     <Compile Include="Assets\Scripts\Utils\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
