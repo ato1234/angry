@@ -13,12 +13,15 @@ public class Enemy : MonoBehaviour {
     bool destroyed;
 
     private GameManager Manager;
+	private AudioManager AudioControler;
 
 	// Use this for initialization
 	void Start () {
         Hp = MaxHp;
         destroyed = false;
         Manager = GameObject.Find("GameManager").GetComponent<GameManager>();
+		AudioControler = GameObject.Find ("AudioManager").GetComponent<AudioManager> ();
+
     }
 	
 	// Update is called once per frame
@@ -58,6 +61,7 @@ public class Enemy : MonoBehaviour {
     public void AddDamage(int damage) {
         if (damage > 0) {
             Manager.AddScore(damage);
+			AudioControler.PlaySE (AudioManager.SE_NPOYO);
 
             Hp -= damage;
             ShowDamageText(damage);
