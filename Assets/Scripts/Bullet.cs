@@ -28,6 +28,7 @@ public class Bullet : MonoBehaviour {
 	void Update () {
         if (transform.position.y < -5) {
             IsAlive = false;
+
         }
 	}
 

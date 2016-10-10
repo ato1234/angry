@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour {
 
 
     // Use this for initialization
+
     void Start () {
         State = transform.FindChild("GameState").GetComponent<GameState>();
         Enemys = GameObject.Find("Enemys");
@@ -134,6 +135,7 @@ public class GameManager : MonoBehaviour {
     }
 
     /// <summary>
+
     /// ゲームステータスをセットする
     /// </summary>
     public void SetGameState(int newStat) {
