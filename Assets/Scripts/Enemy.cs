@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 using utils;
 
 public class Enemy : MonoBehaviour {
@@ -7,12 +8,14 @@ public class Enemy : MonoBehaviour {
 
     public int MaxHp;
     private int Hp;
+	public float CheckPoyo;
 
     public GameObject DestroyEffect;
 
     bool destroyed;
 
     private GameManager Manager;
+	GameState State;
 	private AudioManager AudioControler;
 
 	// Use this for initialization
@@ -21,6 +24,7 @@ public class Enemy : MonoBehaviour {
         destroyed = false;
         Manager = GameObject.Find("GameManager").GetComponent<GameManager>();
 		AudioControler = GameObject.Find ("AudioManager").GetComponent<AudioManager> ();
+		StartCoroutine (CryPoyo (3f+Random.value));
 
     }
 	
@@ -35,6 +39,14 @@ public class Enemy : MonoBehaviour {
             }
         }
 	}
+
+	IEnumerator CryPoyo(float Waittime){
+		yield return new WaitForSeconds (Waittime);
+		AudioControler.PlaySE(AudioManager.SE_POYOYO);
+	}
+
+
+
 
     void OnCollisionEnter(Collision who) {
         GameObject obj = who.gameObject;
@@ -83,6 +95,7 @@ public class Enemy : MonoBehaviour {
         StartCoroutine(Utils.WaitForSeconds(DeathTime, () => {
             GameObject t = Instantiate(DestroyEffect);
             t.transform.position = transform.position;
+			AudioControler.PlaySE(AudioManager.SE_POYOYO);
             Destroy(gameObject);
         }));
     }
