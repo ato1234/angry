@@ -7,6 +7,11 @@ using System.Collections;
 public class GameState : MonoBehaviour{
 
     /// <summary>
+    /// ステージ名称
+    /// </summary>
+    public string StageName;
+
+    /// <summary>
     /// スコア
     /// </summary>
     [HideInInspector]

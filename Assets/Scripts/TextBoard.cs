@@ -32,10 +32,6 @@ public class TextBoard : MonoBehaviour {
     /// </summary>
     public void OnGameStateChange(int newState) {
         switch (newState) {
-            case GameState.STAT_START:
-                ScoreText.enabled = false;
-                ClearText.enabled = false;
-                break;
             case GameState.STAT_MAIN:
                 ScoreText.enabled = true;
                 break;

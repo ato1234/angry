@@ -149,7 +149,7 @@ public class GameManager : MonoBehaviour {
     /// ハイスコアを保存する
     /// </summary>
     void SaveHighScore() {
-        string key = "HIGH_SCORE";
+        string key = "HIGH_SCORE_" + State.StageName;
         int hs = PlayerPrefs.GetInt(key, 0);
         if (State.Score > hs) {
             PlayerPrefs.SetInt(key, State.Score);
