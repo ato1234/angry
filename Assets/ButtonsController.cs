@@ -22,7 +22,5 @@ public class ButtonsController : MonoBehaviour {
 
         int score = PlayerPrefs.GetInt("HIGH_SCORE_" + StageName.text, 0);
         HighScore.text = ""+score;
-
-        Debug.Log(StageName.text + " : " + score);
     }
 }
