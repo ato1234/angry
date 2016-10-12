@@ -17,7 +17,7 @@ public class TwitterAccess : MonoBehaviour {
         string stname = st.StageName;
 
         string baseurl = "http://twitter.com/intent/tweet";
-        string url = "url=http%3a%2f%2fpoyopoyo%2ecom";
+        string url = "url=https%3a%2f%2fato1234%2egithub%2eio%2fangry%2f";
         string text = "text=" + stname + "で"+ score + "点とれたぽよ～(*'v'*) ";
         string hashtags = "hashtags=angrymary";
 
