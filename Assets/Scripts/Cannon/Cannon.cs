@@ -11,18 +11,7 @@ namespace Cannon {
         /// 弾丸のプレハブ
         /// </summary>
         public GameObject BulletPrefab;
-        /// <summary>
-        /// 弾道予測線表示フラグ
-        /// </summary>
-        public bool BulletLineFlag = true;
-        /// <summary>
-        /// 弾道予測線ビットの数
-        /// </summary>
-        public int BulletLineSize = 20;
-        /// <summary>
-        /// 弾道予測線ビットの間隔
-        /// </summary>
-        public float BulletLineBitsInterval = 0.5f;
+
         /// <summary>
         /// 力の最大値
         /// </summary>
@@ -51,7 +40,7 @@ namespace Cannon {
         
         void Start() {
             Force = new Vector3(1, 1, 0);
-            BulletLine = new BulletLine(this, BulletLineSize, BulletLineBitsInterval);
+            BulletLine = transform.FindChild("BulletLine").GetComponent<BulletLine>();
 
             Manager = GameObject.Find("GameManager").GetComponent<GameManager>();
             BulletLineBitContainer = transform.FindChild("BulletLine").gameObject;
@@ -89,9 +78,8 @@ namespace Cannon {
             if (MaxForce * MaxForce < Force.sqrMagnitude) {
                 Force = Force.normalized * MaxForce;
             }
-            if (BulletLineFlag) {
-                BulletLine.ShowBulletLine(Force);
-            }
+
+            BulletLine.ShowBulletLine(Force);
         }
 
         private void SetBarrelAngle(Vector3 mouse) {
