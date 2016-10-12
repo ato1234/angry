@@ -11,7 +11,9 @@ namespace enemy {
         protected int Hp;
         public float CheckPoyo;
 
+		public AudioClip DamagedSound;
         public GameObject DestroyEffect;
+		public AudioClip DestroySound;
 
         bool destroyed;
 
@@ -68,7 +70,7 @@ namespace enemy {
         public void AddDamage(int damage) {
             if (damage > 0) {
                 Manager.AddScore(damage);
-                AudioControler.PlaySE(AudioManager.SE_NPOYO);
+				AudioControler.PlaySE(DamagedSound);
 
                 Hp -= damage;
                 ShowDamageText(damage);
@@ -89,7 +91,7 @@ namespace enemy {
             StartCoroutine(Utils.WaitForSeconds(DeathTime, () => {
                 GameObject t = Instantiate(DestroyEffect);
                 t.transform.position = transform.position;
-                AudioControler.PlaySE(AudioManager.SE_POYOYO);
+				AudioControler.PlaySE(DestroySound);
                 Destroy(gameObject);
             }));
         }
