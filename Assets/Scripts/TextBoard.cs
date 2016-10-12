@@ -5,16 +5,24 @@ using System.Collections;
 public class TextBoard : MonoBehaviour {
 
     [HideInInspector]
-    public Text ScoreText;
+    public GameObject ScoreText;
 
     [HideInInspector]
-    public Text ClearText;
+    public GameObject ClearText;
+
+    [HideInInspector]
+    public GameObject TweetButton;
+
+    [HideInInspector]
+    public GameObject NextButton;
 
     private GameManager Manager;
 
     void Start() {
-        ScoreText = transform.FindChild("ScoreText").GetComponent<Text>();
-        ClearText = transform.FindChild("ClearText").GetComponent<Text>();
+        ScoreText = transform.FindChild("ScoreText").gameObject;
+        ClearText = transform.FindChild("ClearText").gameObject;
+        TweetButton = transform.FindChild("TweetButton").gameObject;
+        NextButton = transform.FindChild("NextButton").gameObject;
 
         Manager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
@@ -22,9 +30,20 @@ public class TextBoard : MonoBehaviour {
     void Update() {
         switch (Manager.State.Stat) {
             case GameState.STAT_MAIN:
-                ScoreText.text = "Score : " + Manager.State.Score;
+                ScoreText.GetComponent<Text>().text = "Score : " + Manager.State.Score;
                 break;
         }
+    }
+
+    IEnumerator ClearMovie() {
+        yield return new WaitForSeconds(1);
+        iTween.MoveTo(ClearText,iTween.Hash(
+                "y", Screen.height*3/4,
+                "time", 1
+            ));
+        yield return new WaitForSeconds(1);
+        TweetButton.SetActive(true);
+        NextButton.SetActive(true);
     }
 
     /// <summary>
@@ -33,10 +52,11 @@ public class TextBoard : MonoBehaviour {
     public void OnGameStateChange(int newState) {
         switch (newState) {
             case GameState.STAT_MAIN:
-                ScoreText.enabled = true;
+                ScoreText.GetComponent<Text>().enabled = true;
                 break;
             case GameState.STAT_CLEAR:
-                ClearText.enabled = true;
+                StartCoroutine(ClearMovie());
+                ClearText.GetComponent<Text>().enabled = true;
                 break;
         }
     }

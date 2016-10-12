@@ -119,19 +119,15 @@ public class GameManager : MonoBehaviour {
     private void StageClearCheck() {
         if (Enemys.transform.childCount == 0) {
             SetGameState(GameState.STAT_CLEAR);
-            StageClear();
         }
     }
 
     /// <summary>
     /// クリア時の処理
     /// </summary>
-    private void StageClear() {
-
-        StartCoroutine(Utils.WaitForSeconds(3, () => {
-            SaveHighScore();
-            GameObject.Find("SceneLoader").GetComponent<SceneLoader>().LoadSceneSingle("StageSelect");
-        }));
+    public void StageClear() {
+        SaveHighScore();
+        GameObject.Find("SceneLoader").GetComponent<SceneLoader>().LoadSceneSingle("StageSelect");
     }
 
     /// <summary>
