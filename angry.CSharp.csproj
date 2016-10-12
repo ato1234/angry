@@ -82,6 +82,7 @@
     <Compile Include="Assets\Scripts\Components\StageClear.cs" />
     <Compile Include="Assets\Scripts\Components\StageView.cs" />
     <Compile Include="Assets\Scripts\Enemy\Enemy.cs" />
+    <Compile Include="Assets\Scripts\Enemy\Poyo.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\GameState.cs" />
     <Compile Include="Assets\Scripts\Particle\ParticleSystemDestroy.cs" />

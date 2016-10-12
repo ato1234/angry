@@ -8,20 +8,20 @@ namespace enemy {
         public float DeathTime;
 
         public int MaxHp;
-        private int Hp;
+        protected int Hp;
         public float CheckPoyo;
 
         public GameObject DestroyEffect;
 
         bool destroyed;
 
-        private GameManager Manager;
+        protected GameManager Manager;
         GameState State;
-        private GameObject DamageTextPref;
-        private AudioManager AudioControler;
+        protected GameObject DamageTextPref;
+        protected AudioManager AudioControler;
 
         // Use this for initialization
-        void Start() {
+        public void Start() {
             Hp = MaxHp;
             destroyed = false;
 
@@ -29,11 +29,10 @@ namespace enemy {
             AudioControler = GameObject.Find("AudioManager").GetComponent<AudioManager>();
             DamageTextPref = Resources.Load<GameObject>("GameObject/DamageText");
 
-            StartCoroutine(CryPoyo(3f + Random.value));
         }
 
         // Update is called once per frame
-        void Update() {
+        public void Update() {
             if (transform.position.y < -5) {
                 Hp -= 10;
             }
@@ -44,15 +43,7 @@ namespace enemy {
             }
         }
 
-        IEnumerator CryPoyo(float Waittime) {
-            yield return new WaitForSeconds(Waittime);
-            AudioControler.PlaySE(AudioManager.SE_POYOYO);
-        }
-
-
-
-
-        void OnCollisionEnter(Collision who) {
+        public void OnCollisionEnter(Collision who) {
             GameObject obj = who.gameObject;
 
             if (obj.tag == "Enemy") {
