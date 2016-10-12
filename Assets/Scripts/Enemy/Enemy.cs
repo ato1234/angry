@@ -9,7 +9,6 @@ namespace enemy {
 
         public int MaxHp;
         protected int Hp;
-        public float CheckPoyo;
 
 		public AudioClip DamagedSound;
         public GameObject DestroyEffect;
