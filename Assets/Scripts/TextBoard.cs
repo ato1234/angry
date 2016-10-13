@@ -41,6 +41,11 @@ public class TextBoard : MonoBehaviour {
                 "y", Screen.height*3/4,
                 "time", 1
             ));
+        iTween.MoveTo(ScoreText, iTween.Hash(
+                "y", Screen.height/2 + 30,
+                "x", Screen.width*2/5 ,
+                "time", 1
+            ));
         yield return new WaitForSeconds(1);
         TweetButton.SetActive(true);
         NextButton.SetActive(true);

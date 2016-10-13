@@ -12,6 +12,7 @@ public class ButtonsController : MonoBehaviour {
         foreach (Transform t in list) {
             if (t.tag == "StageSelectButton") {
                 SetHighScore(t);
+                Unlock(t);
             }
         }
 	}
@@ -22,5 +23,15 @@ public class ButtonsController : MonoBehaviour {
 
         int score = PlayerPrefs.GetInt("HIGH_SCORE_" + StageName.text, 0);
         HighScore.text = ""+score;
+    }
+
+    void Unlock(Transform button) {
+        Text StageName = button.FindChild("StageName").GetComponent<Text>();
+        int StageNum = StageName.text[5] - 1 - '0';
+        int clearFlag = PlayerPrefs.GetInt("ClearFlag_Stage" + StageNum, 0);
+        if (StageNum == 0) {
+            clearFlag = 1;
+        }
+        button.gameObject.GetComponent<Button>().interactable = (clearFlag == 1);
     }
 }

@@ -17,7 +17,6 @@ namespace enemy {
         bool destroyed;
 
         protected GameManager Manager;
-        GameState State;
         protected GameObject DamageTextPref;
         protected AudioManager AudioControler;
 
@@ -67,7 +66,8 @@ namespace enemy {
         }
 
         public void AddDamage(int damage) {
-            if (damage > 0) {
+
+            if (damage > 0 && Manager.State.Stat != GameState.STAT_START) {
                 Manager.AddScore(damage);
 				AudioControler.PlaySE(DamagedSound);
 

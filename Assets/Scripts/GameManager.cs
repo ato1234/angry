@@ -127,6 +127,7 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     public void StageClear() {
         SaveHighScore();
+        SetClearFlag();
         GameObject.Find("SceneLoader").GetComponent<SceneLoader>().LoadSceneSingle("StageSelect");
     }
 
@@ -151,6 +152,13 @@ public class GameManager : MonoBehaviour {
             PlayerPrefs.SetInt(key, State.Score);
             PlayerPrefs.Save();
         }
+    }
+
+    void SetClearFlag() {
+        string key = "ClearFlag_Stage" + (State.StageName[5] - '0');
+        Debug.Log(key);
+        PlayerPrefs.SetInt(key, 1);
+        PlayerPrefs.Save();
     }
 
     /// <summary>
