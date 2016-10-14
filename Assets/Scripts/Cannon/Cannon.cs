@@ -39,8 +39,9 @@ namespace Cannon {
         public GameObject Muzzle { get; private set; }
         
         void Start() {
-            Force = new Vector3(1, 1, 0);
+            Force = new Vector3(5, 1, 0);
             BulletLine = transform.FindChild("BulletLine").GetComponent<BulletLine>();
+            BulletLine.SetForce(Force);
 
             Manager = GameObject.Find("GameManager").GetComponent<GameManager>();
             BulletLineBitContainer = transform.FindChild("BulletLine").gameObject;
@@ -79,7 +80,7 @@ namespace Cannon {
                 Force = Force.normalized * MaxForce;
             }
 
-            BulletLine.ShowBulletLine(Force);
+            BulletLine.SetForce(Force);
         }
 
         private void SetBarrelAngle(Vector3 mouse) {

@@ -156,7 +156,6 @@ public class GameManager : MonoBehaviour {
 
     void SetClearFlag() {
         string key = "ClearFlag_Stage" + (State.StageName[5] - '0');
-        Debug.Log(key);
         PlayerPrefs.SetInt(key, 1);
         PlayerPrefs.Save();
     }
